@@ -32,7 +32,7 @@
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .glass-card:hover {
@@ -65,9 +65,9 @@
             height: 300px;
         }
         
-        .floating {
+        /* .floating {
             animation: floating 3s ease-in-out infinite;
-        }
+        } */
         
         @keyframes floating {
             0%, 100% { transform: translateY(0px); }
@@ -477,23 +477,37 @@
                     </div>
                 </div>
                 <div class="glass-card p-10 rounded-3xl">
-                    <form id="contactForm" class="space-y-6">
-                        <div>
-                            <label class="block text-sm font-semibold mb-3 text-gray-300">Name</label>
-                            <input type="text" id="name" class="w-full contact-input rounded-xl px-6 py-4 text-white" required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold mb-3 text-gray-300">Email</label>
-                            <input type="email" id="email" class="w-full contact-input rounded-xl px-6 py-4 text-white" required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold mb-3 text-gray-300">Message</label>
-                            <textarea id="message" rows="4" class="w-full contact-input rounded-xl px-6 py-4 resize-none text-white" required></textarea>
-                        </div>
-                        <button type="submit" class="w-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 py-4 rounded-xl font-semibold hover:shadow-2xl transition-all transform hover:scale-[1.02] text-lg">
-                            Send Message
+                    <h3 class="text-2xl font-bold mb-6 text-center">Quick Connect</h3>
+                    <p class="text-gray-300 mb-8 text-center">Choose your preferred way to reach out</p>
+                    
+                    <div class="space-y-4">
+                        <button onclick="openWhatsApp()" class="w-full bg-gradient-to-r from-green-500 to-green-600 py-5 rounded-xl font-semibold hover:shadow-2xl transition-all transform hover:scale-[1.02] text-lg flex items-center justify-center">
+                            <i class="fab fa-whatsapp text-2xl mr-3"></i>
+                            Message on WhatsApp
                         </button>
-                    </form>
+                        
+                        <button onclick="openEmail()" class="w-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 py-5 rounded-xl font-semibold hover:shadow-2xl transition-all transform hover:scale-[1.02] text-lg flex items-center justify-center">
+                            <i class="fas fa-envelope text-xl mr-3"></i>
+                            Send an Email
+                        </button>
+                        
+                        <a href="tel:+971502076151" class="block w-full bg-gradient-to-r from-purple-500 to-pink-600 py-5 rounded-xl font-semibold hover:shadow-2xl transition-all transform hover:scale-[1.02] text-lg text-center">
+                            <i class="fas fa-phone text-xl mr-3"></i>
+                            Call Now (UAE)
+                        </a>
+                        
+                        <a href="https://www.linkedin.com/in/syed-ahamed-089a91194" target="_blank" rel="noopener noreferrer" class="block w-full bg-gradient-to-r from-blue-600 to-blue-700 py-5 rounded-xl font-semibold hover:shadow-2xl transition-all transform hover:scale-[1.02] text-lg text-center">
+                            <i class="fab fa-linkedin text-xl mr-3"></i>
+                            Connect on LinkedIn
+                        </a>
+                    </div>
+                    
+                    <div class="mt-8 p-6 bg-white/5 rounded-xl border border-white/10">
+                        <p class="text-sm text-gray-400 text-center">
+                            <i class="fas fa-info-circle mr-2 text-cyan-400"></i>
+                            Available for consultations and project discussions
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -544,22 +558,21 @@
             });
         });
 
-        // Contact form
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            
-            const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
-            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+        // WhatsApp function
+        function openWhatsApp() {
+            const phoneNumber = '971502076151';
+            const message = encodeURIComponent('Hi Syed, I found your portfolio and would like to discuss...');
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
+            window.open(whatsappURL, '_blank');
+        }
+
+        // Email function
+        function openEmail() {
+            const subject = encodeURIComponent('Inquiry from Portfolio Website');
+            const body = encodeURIComponent('Hi Syed,\n\nI came across your portfolio and would like to discuss...\n\nBest regards,');
             const mailtoLink = `mailto:syedaha18@gmail.com?subject=${subject}&body=${body}`;
-            
             window.open(mailtoLink, '_blank');
-            this.reset();
-            alert('Thank you! Your email client should open now.');
-        });
+        }
 
         // Intersection Observer for fade-in animations
         const observerOptions = {
